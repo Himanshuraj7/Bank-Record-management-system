@@ -10,11 +10,11 @@ public:
     
     void read_data();
     void show_data();
-    void write_rec();
+    void write_data();
     void read_rec();
-    void search_rec();
-    void edit_rec();
-    void delete_rec();
+    void search_data();
+    void edit();
+    void delete_data();
     void fordelay(int j);
 };
 
@@ -43,7 +43,7 @@ void HDFC_BANK::show_data()
     cout<<"Current Balance: Rs.  "<<total_Balance<<endl;
     cout<<"-------------------------------"<<endl<<endl;
 }
-void HDFC_BANK::write_rec()
+void HDFC_BANK::write_data()
 {
     ofstream outfile; // ofstream to write
     outfile.open("record.txt", ios::binary|ios::app);
@@ -72,7 +72,7 @@ void HDFC_BANK::read_rec()
     }
     infile.close();
 }
-void HDFC_BANK::search_rec()
+void HDFC_BANK::search_data()
 {
     int n;
     ifstream infile;
@@ -91,7 +91,7 @@ void HDFC_BANK::search_rec()
     infile.read(reinterpret_cast<char*>(this), sizeof(*this));
     show_data();
 }
-void HDFC_BANK::edit_rec()
+void HDFC_BANK::edit()
 {
     int n;
     fstream iofile;
@@ -117,7 +117,7 @@ void HDFC_BANK::edit_rec()
     read_data();
     iofile.write(reinterpret_cast<char*>(this), sizeof(*this));
 }
-void HDFC_BANK::delete_rec()
+void HDFC_BANK::delete_data()
 {
     int n;
     ifstream infile;
@@ -217,19 +217,19 @@ int main()
         switch(choice)
         {
         case 1:
-            A.write_rec();
+            A.write_data();
             break;
         case 2:
             A.read_rec();
             break;
         case 3:
-            A.search_rec();
+            A.search_data();
             break;
         case 4:
-            A.edit_rec();
+            A.edit();
             break;
         case 5:
-            A.delete_rec();
+            A.delete_data();
             break;
         case 6:
             exit(0);
