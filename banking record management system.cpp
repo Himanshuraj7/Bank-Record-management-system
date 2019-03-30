@@ -3,7 +3,7 @@ using namespace std;
 class HDFC_BANK
 {
 public:
-	char account_number[20];
+    char account_number[20];
     char firstName[10];
     char lastName[10];
     float total_Balance;
