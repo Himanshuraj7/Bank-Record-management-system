@@ -1,9 +1,18 @@
+/*
+reinterpret_cast is a type of casting operator used in C++. It can typecast any pointer to any other data type.
+
+Reason to open file in Binary:--
+Depending on the environment where the application runs, some special character(like \n, \t) conversion may occur in 
+input/output operations in text mode to adapt them to a system-specific text file format.
+*/
+
 #include<bits/stdc++.h>
 using namespace std;
+
 class HDFC_BANK
 {
 public:
-    char account_number[20];
+	char account_number[20];
     char firstName[10];
     char lastName[10];
     float total_Balance;
@@ -48,7 +57,7 @@ void HDFC_BANK::write_data()
     ofstream outfile; // ofstream to write
     outfile.open("record.txt", ios::binary|ios::app);
     read_data();
-    outfile.write(reinterpret_cast<char *>(this), sizeof(*this));
+    outfile.write(reinterpret_cast<char *>(this), sizeof(*this)); // everything is type casted into binary
     outfile.close();
     system("cls");
 }
@@ -58,7 +67,7 @@ void HDFC_BANK::read_rec()
     infile.open("record.txt", ios::binary);
     if(!infile)
     {
-        cout<<"Error in Opening! File Not Found!!"<<endl;
+        cout<<"Error in Opening! File Not Found!!"<<endl<<endl;
         return;
     }
     
@@ -94,9 +103,9 @@ void HDFC_BANK::search_data()
 void HDFC_BANK::edit()
 {
     int n;
-    fstream iofile;
+    fstream iofile; // fstream has both ifstream and of stream
     iofile.open("record.txt", ios::in|ios::binary);
-    if(!iofile)
+    if(!iofile) // here we are first reading and then writing, so we need both the stream
     {
         cout<<"\nError in opening! File Not Found!!"<<endl;
         return;
@@ -111,6 +120,7 @@ void HDFC_BANK::edit()
     cout<<"Record "<<n<<" has following data"<<endl;
     show_data();
     iofile.close();
+    
     iofile.open("record.txt", ios::out|ios::in|ios::binary);
     iofile.seekp((n-1)*sizeof(*this));
     cout<<"\nEnter data to Modify "<<endl;
@@ -147,17 +157,18 @@ void HDFC_BANK::delete_data()
     remove("record.txt");
     rename("tmpfile.txt", "record.txt");
 }
+
 int main()
 {	HDFC_BANK A;
 	system("color 9"); // color 9 for blue
-	printf("\n\n\t\t\t\t======BANKING RECORD MANAGEMENT SYSTEM======\n\n\n\n");
+	printf("\n\n\t\t\t\t======BANK RECORD MANAGEMENT SYSTEM======\n\n\n\n");
 	printf("\t\tCREATED BY\n\n");
 	printf("\t\tHIMANSHU RAJ\n\n");
 	printf("\t\tCSE   LOVELY PROFESSIONAL UNIVERSITY\n\n\n\n");
 	
 	
 	char pass[10],password[10]="c";
-    int i=0, main_exit;;
+    int i=0, main_exit;
     
     pass:
     cout<<"\n\n\t\tEnter the password to login:";
@@ -176,6 +187,7 @@ int main()
         }
     else
         {   cout<<"\n\nWrong password!!";
+        
             login_try:
             printf("\nEnter 1 to try again and 0 to exit:");
             scanf("%d",&main_exit);
